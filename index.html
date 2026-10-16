@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignment Importance Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style_v4.css">
+</head>
+<body>
+  <main class="card">
+    <div class="title-row">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <g transform="rotate(-40 32 32)">
+          <rect x="22" y="2" width="20" height="9" rx="2" fill="#f4a7b9"/>
+          <rect x="22" y="11" width="20" height="6" fill="#b9c0c9"/>
+          <rect x="22" y="17" width="20" height="31" fill="#f6c33b"/>
+          <rect x="22" y="17" width="6" height="31" fill="#fbd96a"/>
+          <rect x="36" y="17" width="6" height="31" fill="#d9a41f"/>
+          <polygon points="22,48 42,48 32,62" fill="#f1d9b0"/>
+          <polygon points="28,56 36,56 32,62" fill="#3b3b3b"/>
+        </g>
+      </svg>
+      <h1>Assignment Importance</h1>
+    </div>
+    <p class="subtitle">See how much an assignment really matters for your grade.</p>
+
+    <form id="importance-form" novalidate>
+      <label for="assignment-points">Points this assignment is worth</label>
+      <input type="number" id="assignment-points" min="0" step="any" placeholder="e.g. 100" required>
+
+      <label for="total-points">Total points in the entire class</label>
+      <input type="number" id="total-points" min="0" step="any" placeholder="e.g. 1000" required>
+
+      <label for="current-grade">Your current grade in the class (%)</label>
+      <input type="number" id="current-grade" min="0" max="200" step="any" placeholder="e.g. 85" required>
+
+      <label for="reassess">How reassessable is this assignment?</label>
+      <select id="reassess" required>
+        <option value="1.0">Not reassessable at all</option>
+        <option value="0.75">Rarely reassessable (special circumstances only)</option>
+        <option value="0.5">Reassessable with a penalty or limits</option>
+        <option value="0.3">Easily reassessable (full or near-full credit)</option>
+        <option value="0.15">Unlimited retakes / can be dropped or replaced</option>
+      </select>
+
+      <div class="buttons">
+        <button type="submit">Calculate importance</button>
+        <button type="button" id="random-btn" class="secondary">Random input</button>
+      </div>
+    </form>
+
+    <p id="error" class="error" role="alert" hidden></p>
+
+    <section id="result" class="result" hidden aria-live="polite">
+      <div class="score-circle" id="score-circle"><span id="score">0</span><small>100</small></div>
+      <h2 id="label"></h2>
+      <p id="details"></p>
+      <p id="note" class="note"></p>
+    </section>
+  </main>
+
+  <script src="app_v4.js"></script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+* { box-sizing: border-box; }
+
+:root {
+  --paper: #fffef6;
+  --line: #b8d4ee;
+  --margin: #e8788a;
+  --ink: #2b3a67;
+  --red-ink: #d62828;
+  --pencil: #f6c33b;
+  --eraser: #f4a7b9;
+  --desk: #d9c7a3;
+  --line-height: 34px;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 28px 16px 48px;
+  font-family: "Patrick Hand", "Comic Sans MS", "Segoe Print", cursive;
+  font-size: 1.15rem;
+  color: var(--ink);
+  background-color: var(--desk);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0 6px, transparent 6px 12px);
+}
+
+/* The notebook page */
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  padding: 26px 26px 30px 78px;
+  background-color: var(--paper);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--line-height) - 1px),
+    var(--line) calc(var(--line-height) - 1px),
+    var(--line) var(--line-height)
+  );
+  background-position: 0 14px;
+  border-radius: 6px 12px 12px 6px;
+  box-shadow: 0 2px 0 #e9e4cf, 0 8px 18px rgba(60, 45, 20, 0.35);
+  transform: rotate(-0.4deg);
+}
+
+/* Red margin line */
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 58px;
+  width: 2px;
+  background: var(--margin);
+  box-shadow: 3px 0 0 rgba(232, 120, 138, 0.35);
+}
+
+/* Binder holes */
+.card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 14px;
+  width: 22px;
+  background:
+    radial-gradient(circle at center, var(--desk) 0 9px, #cdbf9d 9px 10px, transparent 10px)
+    0 40px / 22px 150px repeat-y;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.title-row svg { flex: none; width: 54px; height: 54px; }
+
+h1 {
+  margin: 0;
+  font-family: "Caveat", "Patrick Hand", cursive;
+  font-size: 2.3rem;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.subtitle {
+  margin: 6px 0 14px;
+  color: #5a6894;
+  line-height: var(--line-height);
+}
+
+label {
+  display: block;
+  margin: 10px 0 0;
+  line-height: var(--line-height);
+  font-size: 1.1rem;
+}
+
+input, select {
+  width: 100%;
+  padding: 2px 4px;
+  height: var(--line-height);
+  font-family: inherit;
+  font-size: 1.2rem;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  border-bottom: 2px dashed #8aa4cc;
+  border-radius: 0;
+}
+
+select { cursor: pointer; }
+
+input:focus, select:focus {
+  outline: none;
+  background: rgba(246, 195, 59, 0.2);
+  border-bottom-style: solid;
+  border-bottom-color: var(--ink);
+}
+
+input::placeholder { color: #9aa7c7; }
+
+/* Pencil-shaped buttons */
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+/* Each button is a pencil: graphite point and wooden cone on the LEFT,
+   painted body in the middle, pink eraser on the RIGHT. */
+button {
+  --body: var(--pencil);
+  --cone: 46px;       /* length of the sharpened wooden tip */
+  --graphite: 13px;   /* length of the graphite point inside the tip */
+  flex: 1 1 180px;
+  height: 46px;
+  padding: 0 28px 0 calc(var(--cone) + 10px);
+  font-family: "Patrick Hand", "Comic Sans MS", cursive;
+  font-size: 1.15rem;
+  color: #3b2f00;
+  background:
+    /* light on top, shade on the bottom */
+    linear-gradient(to bottom,
+      rgba(255, 255, 255, 0.35) 0 30%,
+      transparent 30% 70%,
+      rgba(0, 0, 0, 0.18) 70% 100%),
+    /* graphite point, wood cone, then the painted body */
+    linear-gradient(to right,
+      #3b3b3b 0 var(--graphite),
+      #f1d3a1 var(--graphite) var(--cone),
+      var(--body) var(--cone) 100%);
+  border: none;
+  border-right: 16px solid var(--eraser);
+  cursor: pointer;
+  clip-path: polygon(0 50%, var(--cone) 0, 100% 0, 100% 100%, var(--cone) 100%);
+  transition: transform 0.12s;
+}
+
+button.secondary {
+  --body: #4a78c9;
+  color: #fff;
+}
+
+button:hover { transform: translateX(3px) rotate(-1deg); }
+button:active { transform: translateX(6px); }
+
+button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+
+.error {
+  margin: 16px 0 0;
+  color: var(--red-ink);
+  font-size: 1.15rem;
+  line-height: var(--line-height);
+  text-decoration: underline wavy var(--red-ink);
+  text-underline-offset: 4px;
+}
+
+/* Graded-paper result, written in red pen */
+.result {
+  margin-top: 26px;
+  padding-top: 14px;
+  text-align: center;
+  color: var(--red-ink);
+  font-family: "Caveat", "Patrick Hand", cursive;
+}
+
+.score-circle {
+  width: 150px;
+  height: 120px;
+  margin: 0 auto 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid var(--red-ink);
+  border-radius: 52% 48% 55% 45% / 48% 55% 45% 52%;
+  transform: rotate(-5deg);
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.score-circle span { font-size: 3.6rem; font-weight: 700; line-height: 1; }
+.score-circle small { font-size: 1.5rem; line-height: 1; border-top: 3px solid var(--red-ink); padding-top: 2px; margin-top: 2px; }
+
+.result h2 { margin: 0; font-size: 2rem; line-height: 1.15; }
+
+.result p {
+  margin: 6px 0 0;
+  font-size: 1.45rem;
+  line-height: 1.3;
+}
+
+.result .note {
+  font-family: "Patrick Hand", "Comic Sans MS", cursive;
+  font-size: 1.1rem;
+  color: var(--ink);
+  margin-top: 10px;
+}
+
+@media (max-width: 420px) {
+  .card { padding-left: 64px; padding-right: 18px; }
+  .card::before { left: 48px; }
+  .card::after { left: 8px; }
+}
